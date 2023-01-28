@@ -21,6 +21,7 @@ export const resolvers = {
       } = session;
 
       try {
+        // @ts-ignore
         const conversations = await prisma.conversation.findMany({
           // below is how we should get conversations for the logged in user
           // there is an open pr for prisma mongo adapter
@@ -41,8 +42,8 @@ export const resolvers = {
         // alternatively we will filter conversations for this user
 
         return conversations.filter(
-          (conversation) =>
-            !!conversation.participants.find((p) => p.userId === userId)
+          (conversation: any) =>
+            !!conversation.participants.find((p: any) => p.userId === userId)
         );
       } catch (error: any) {
         console.log("Conversations error", error);
